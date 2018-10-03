@@ -8,14 +8,14 @@
   <title>WhiteSource FS-Agent Configuration File Generator</title>
   
   <style type="text/css" media="screen">
-    body {font-family:verdana, sans-serif; color:#666; background:#fafafa; padding:20px; text-align:center;}
+    body {font-family:verdana, sans-serif; color:#000000; background:#a0a0a0; padding:20px; text-align:center;}
     #page {text-align:left; max-width:600px; margin:0 auto;} 
-    h1 {font-size:16px; font-weight:normal; text-align:center;}
-    label {font-size:16px;}
+    h1 {font-size:18px; font-weight:bold; text-align:center; padding:20px;}
+    label {font-size:14px;}
     label i {font-style:normal; display:inline-block; text-align:right; width:100px;}
     label textarea {vertical-align:top;}
-    button {margin-left:105px; padding:5px; margin-top:5px; font-size:16px;}
-    input, textarea {width:400px; font-size:16px; font-family: courier, "courier new", monospace; margin:0 0 5px 0; padding:5px; border:1px solid #eee;}
+    button {margin-left:105px; padding:5px; margin-top:5px; font-size:14px;}
+    input, textarea {width:400px; font-size:14px; font-family: helvetica, "helvetica bold"; margin:0 0 5px 0; padding:5px; border:1px solid #eee;}
     select {margin:0 0 5px 0;}
     @media (min-width:300px) and (max-width: 768px) {
       input, textarea {width:100%;}
@@ -53,8 +53,11 @@
 		  '\n'+ 
 		  'apiKey=' + document.getElementById('title').value + '\n' + // =title
           'wss.url=' + document.getElementById('location').value + '\n' + // =location
-          //'checkPolicies=' + document.getElementById('senses').value + '\n' + // =senses - select menu
-		  //'forceUpdate.failBuildOnPolicyViolation=false' + '\n' + // =test of inserting lines
+
+		  
+		  
+		  document.getElementById('eua').value + // =senses - select menu
+
 		  
 		  'projectName=' + document.getElementById('project').value + '\n' + // =senses - select menu
 		  'productName=' + document.getElementById('product').value + '\n' + // =senses - select menu
@@ -63,6 +66,7 @@
 		  
 		  'includes=**/*.c **/*.cc **/*.cp **/*.cpp **/*.cxx **/*.c++ **/*.h **/*.hpp **/*.hxx **/*.m **/*.mm **/*.js **/*.php **/*.java **/*.jar **/*.gem **/*.rb **/*.dll **/*.cs **/*.tgz **/*.deb **/*.gzip **/*.rpm **/*.tar.bz2 **/*.zip **/*.tar.gz **/*.egg **/*.whl **/*.py **/*.java **/*.class **/*.r **/*.aspx **/*.asp **/*.html **/*.cshtml **/*.css **/*.json **/*.csproj **/*.cs' + '\n' 
 		  
+		 
           //'tags: ' + '\n- ' + document.getElementById('tags').value.replace(/,\s/g, "\n- ") + '\n' + 
             // =tags
             // The replace() bit above converts 'tag,tag' to '- tag\n- tag\n' with regular expressions
@@ -89,13 +93,18 @@
         {
         document.body.removeChild(event.target);
         }
+		
+	function eua() {
+  var x = document.getElementById("eua").value="enableImpactAnalysis=true \nmavenAggregateModules=true \ngradleAggregateModules=true \nmaven.ignoredScopes=all \n";
+}
+
   </script>
 </head>
 
 <body>
   <div id="page">
-    
-    <h1>WhiteSource FSA Configuration Generator</h1>
+    <center><img src="whitesource_logo_light_small.png"></center>
+    <h1>FSA Configuration Generator</h1>
   
     <label for="title">
       <i>API Key</i> <!-- =title - input example -->
@@ -129,7 +138,7 @@
    </label>
     
     <input type="hidden" id="date" size="40"> <!-- =date - hidden input example (automatically populated with current date in yyyy-mm-dd format) -->
-    
+   <input type="hidden" id="eua" value="">
     <br>
     
    <!-- <label for="senses"> -->
@@ -162,7 +171,9 @@
       <i>Filename</i>
       <input id="filename" value="whitesource-fs-agent.config" size="40" placeholder="whitesource-fs-agent.config">
     </label>
-    
+	<br>
+	 <button onclick="eua()">Effective Usage</button> 
+    <br><br>
     <button onclick="saveFormAsTextFile()">
       Save Config
     </button>
